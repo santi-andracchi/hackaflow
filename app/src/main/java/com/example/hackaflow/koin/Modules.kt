@@ -5,9 +5,10 @@ import com.example.hackaflow.Login.LoginViewModel
 import com.example.hackaflow.base.BaseViewModel
 import com.example.hackaflow.repository.AuthRepository
 import com.example.hackaflow.repository.AuthRepositoryImpl
+import com.example.hackaflow.validationCode.ValidationCodeViewModel
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
-import org.koin.androidx.viewmodel.dsl.viewModel
+import org.koin.android.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
@@ -24,6 +25,7 @@ val appModules = module {
 
     viewModel { BaseViewModel() }
     viewModel { LoginViewModel(get()) }
+    viewModel { ValidationCodeViewModel() }
 }
 
 fun provideRetrofit(okHttpClient: OkHttpClient, url: String): Retrofit {

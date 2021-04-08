@@ -1,7 +1,8 @@
-plugins {
-    id 'com.android.application'
-    id 'kotlin-android'
-}
+apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-kapt'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: "androidx.navigation.safeargs.kotlin"
 
 android {
     compileSdkVersion 30
@@ -54,9 +55,12 @@ dependencies {
     implementation "androidx.navigation:navigation-ui-ktx:2.3.4"
 
     // Koin main features for Android (Scope,ViewModel ...)
-    implementation "io.insert-koin:koin-android:3.0.1-beta-2"
+
 // Koin Android - experimental builder extensions
-    implementation "io.insert-koin:koin-android-ext:3.0.1-beta-2"
+    implementation 'io.github.chaosleung:pinview:1.4.4'
+
+    implementation 'org.koin:koin-android-viewmodel:2.0.1'
+    implementation 'io.github.chaosleung:pinview:1.4.4'
 
     // Network
     implementation "com.squareup.retrofit2:retrofit:2.6.2"
