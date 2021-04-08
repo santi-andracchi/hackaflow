@@ -12,6 +12,7 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
 import com.example.hackaflow.R
 import com.example.hackaflow.data.UIState
+import com.example.hackaflow.extensions.hideKeyboard
 import com.example.hackaflow.extensions.toast
 import kotlinx.android.synthetic.main.fragment_validation.*
 import org.koin.android.viewmodel.ext.android.viewModel
@@ -33,7 +34,10 @@ class ValidationCodeFragment: Fragment() {
     private fun setListeners(){
         pinCodeEditText.addTextChangedListener(object : TextWatcher {
             override fun onTextChanged(cs: CharSequence, arg1: Int, arg2: Int, arg3: Int) {
-                if(cs.length == 5) viewModel.validateCode(cs) else setNormalColors()
+                if(cs.length == 5){
+                    viewModel.validateCode(cs)
+                    requireActivity().hideKeyboard()
+                } else setNormalColors()
             }
             override fun beforeTextChanged(s: CharSequence, arg1: Int, arg2: Int, arg3: Int) {}
             override fun afterTextChanged(arg0: Editable) {
