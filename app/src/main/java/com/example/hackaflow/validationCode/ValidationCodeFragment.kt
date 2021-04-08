@@ -39,7 +39,7 @@ class ValidationCodeFragment: Fragment() {
 
         scanCodeButton.setOnClickListener {
             if(code.length == 5) viewModel.validateCode(code)
-            else Toast.makeText(requireContext(), "Complete todos los casilleros", Toast.LENGTH_SHORT).show()
+            else Toast.makeText(requireContext(), "Error: Complete todos los casilleros", Toast.LENGTH_SHORT).show()
         }
     }
 }

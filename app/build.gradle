@@ -57,10 +57,8 @@ dependencies {
     // Koin main features for Android (Scope,ViewModel ...)
 
 // Koin Android - experimental builder extensions
-    implementation 'org.koin:koin-android-viewmodel:2.0.1'
     implementation 'io.github.chaosleung:pinview:1.4.4'
 
-    implementation "io.insert-koin:koin-android-ext:3.0.1-beta-2"
     implementation 'org.koin:koin-android-viewmodel:2.0.1'
     implementation 'io.github.chaosleung:pinview:1.4.4'
 
