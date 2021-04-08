@@ -11,5 +11,19 @@
         android:label="@string/first_fragment_label"
         tools:layout="@layout/fragment_login">
 
+        <action
+            android:id="@+id/navigation_login_to_validation"
+            app:destination="@id/ValidationCodeFragment" />
+
+
+    </fragment>
+
+
+    <fragment
+        android:id="@+id/ValidationCodeFragment"
+        android:name="com.example.hackaflow.validationCode.ValidationCodeFragment"
+        android:label="@string/validation_fragment"
+        tools:layout="@layout/fragment_validation">
+
     </fragment>
 </navigation>

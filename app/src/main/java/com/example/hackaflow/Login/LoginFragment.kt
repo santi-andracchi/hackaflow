@@ -5,7 +5,9 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.navigation.findNavController
 import com.example.hackaflow.R
+import kotlinx.android.synthetic.main.fragment_login.*
 
 /**
  * A simple [Fragment] subclass as the default destination in the navigation.
@@ -21,6 +23,11 @@ class LoginFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        button_first.setOnClickListener {
+            val action = LoginFragmentDirections.navigationLoginToValidation()
+            requireActivity().findNavController(R.id.nav_host_fragment).navigate(action)
+        }
 
     }
 }
