@@ -6,11 +6,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.navigation.findNavController
 import com.example.hackaflow.R
 import com.example.hackaflow.data.UIState
 import com.example.hackaflow.extensions.toast
-import kotlinx.android.synthetic.main.fragment_login.*
 import org.koin.android.ext.android.inject
 
 /**
@@ -31,10 +29,10 @@ class LoginFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         observeLogin()
 
-        button_first.setOnClickListener {
-            val action = LoginFragmentDirections.navigationLoginToValidation()
-            requireActivity().findNavController(R.id.nav_host_fragment).navigate(action)
-        }
+//        button_first.setOnClickListener {
+//            val action = LoginFragmentDirections.navigationLoginToValidation()
+//            requireActivity().findNavController(R.id.nav_host_fragment).navigate(action)
+//        }
     }
 
     private fun observeLogin() {

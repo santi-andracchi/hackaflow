@@ -7,4 +7,8 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="statusBarColor">#191919</color>
+    <color name="grayFive">#686868</color>
+    <color name="accent">#57d8b0</color>
+    <color name="error">#a74449</color>
 </resources>

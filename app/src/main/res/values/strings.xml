@@ -11,4 +11,15 @@
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
     <string name="validation_fragment">validation_fragment</string>
     <string name="connection_error">"No pudimos comunicarnos con el servidor. Intentá nuevamente"</string>
+    <string name="login_email_hint">Usuario (Email)</string>
+    <string name="login_password_hint">Contraseña</string>
+
+    <string name="prompt_email">User (Email)</string>
+    <string name="prompt_password">Contraseña</string>
+    <string name="action_sign_in">Ingresar</string>
+    <string name="action_sign_in_short">Sign in</string>
+    <string name="welcome">"Welcome !"</string>
+    <string name="invalid_username">Not a valid username</string>
+    <string name="invalid_password">Password must be >5 characters</string>
+    <string name="login_failed">"Login failed"</string>
 </resources>
