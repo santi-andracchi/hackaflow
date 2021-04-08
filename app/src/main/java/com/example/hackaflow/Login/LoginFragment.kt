@@ -11,11 +11,11 @@ import com.example.hackaflow.R
 import com.example.hackaflow.data.UIState
 import com.example.hackaflow.extensions.toast
 import kotlinx.android.synthetic.main.fragment_login.*
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import org.koin.android.ext.android.inject
 
-/**
- * A simple [Fragment] subclass as the default destination in the navigation.
- */
+
+@ExperimentalCoroutinesApi
 class LoginFragment : Fragment() {
 
     private val viewModel by inject<LoginViewModel>()
@@ -23,20 +23,27 @@ class LoginFragment : Fragment() {
     override fun onCreateView(
             inflater: LayoutInflater, container: ViewGroup?,
             savedInstanceState: Bundle?): View? {
-        // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_login, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         observeLogin()
-        setListeners()
+        setupListeners()
     }
 
-    private fun setListeners(){
+    private fun setupListeners(){
         login.setOnClickListener {
-            val action = LoginFragmentDirections.navigationLoginToValidation()
-            requireActivity().findNavController(R.id.nav_host_fragment).navigate(action)
+            val username = username.text.toString()
+            val password = password.text.toString()
+
+            if(username.isNotEmpty() && password.isNotEmpty()){
+                viewModel.login(username, password)
+            }
+            else {
+                toast(resources.getString(R.string.error_fields), Toast.LENGTH_LONG)
+            }
+
         }
     }
 
@@ -44,17 +51,17 @@ class LoginFragment : Fragment() {
         viewModel.loginState.observe(viewLifecycleOwner, {
             when (it) {
                 is UIState.Loading -> {
-//                    binding.progressBar.visibility = View.VISIBLE
+                    loading.visibility = View.VISIBLE
+                    login.visibility = View.GONE
                 }
                 is UIState.Success -> {
-                    //findNavController().navigate(R.id.)
+                    val action = LoginFragmentDirections.navigationLoginToValidation()
+                    requireActivity().findNavController(R.id.nav_host_fragment).navigate(action)
                 }
                 is UIState.Error -> {
-//                    binding.progressBar.visibility = View.INVISIBLE
-                    toast(
-                        resources.getString(R.string.connection_error),
-                        Toast.LENGTH_LONG
-                    )
+                    loading.visibility = View.GONE
+                    login.visibility = View.VISIBLE
+                    toast(resources.getString(R.string.connection_error), Toast.LENGTH_LONG)
                 }
             }
         })

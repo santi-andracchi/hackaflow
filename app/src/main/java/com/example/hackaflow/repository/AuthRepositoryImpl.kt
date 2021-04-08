@@ -5,11 +5,15 @@ import com.example.hackaflow.data.DataResult
 import com.example.hackaflow.extensions.parse
 import com.example.hackaflow.koin.FlowAPI
 import com.google.gson.JsonObject
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.map
 
+@ExperimentalCoroutinesApi
 class AuthRepositoryImpl(private val flowApi: FlowAPI) : AuthRepository {
+
 
     override suspend fun login(username: String, password: String): Flow<DataResult<JsonObject>> {
         val data = JsonObject().apply {
@@ -21,6 +25,8 @@ class AuthRepositoryImpl(private val flowApi: FlowAPI) : AuthRepository {
             emit(flowApi.login(data))
         }.map { res ->
             res.parse { it }
+        }.catch {
+            emit(DataResult.ErrorResult(Throwable("Internal server error")))
         }
     }
 
@@ -33,7 +39,7 @@ class AuthRepositoryImpl(private val flowApi: FlowAPI) : AuthRepository {
             emit(flowApi.validateCode(data))
         }.map { res ->
             res.parse { it }
-        }
+        }.catch { emit(DataResult.ErrorResult(Throwable("Internal server error"))) }
     }
 }
 

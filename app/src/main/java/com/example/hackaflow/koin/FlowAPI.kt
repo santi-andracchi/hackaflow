@@ -8,7 +8,7 @@ import retrofit2.http.POST
 
 interface FlowAPI {
 
-    @POST("/hackaflow/v1/code-login")
+    @POST("/hackaflow/v1/code-validate")
     suspend fun validateCode(@Body requestData: JsonObject): Response<CodeValidation>
 
     @POST("/api/login")

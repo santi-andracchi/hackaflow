@@ -26,5 +26,6 @@
     <string name="error_server_error">Oops! Encontramos un problema. Vuelva a intentarlo más tarde.</string>
     <string name="success_link">Se ha vinculado con exito</string>
     <string name="redirect_msg">En un Momento sera redireccionado</string>
+    <string name="error_fields">"Error: Complete todos los casilleros"</string>
 
 </resources>

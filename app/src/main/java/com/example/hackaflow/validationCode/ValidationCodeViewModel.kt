@@ -21,6 +21,7 @@ class ValidationCodeViewModel(private val authRepository: AuthRepository): ViewM
     val validationState: LiveData<UIState<out CodeValidation>> = _validationState
 
     fun validateCode(code: CharSequence) {
+        _validationState.postValue(UIState.Loading())
         viewModelScope.launch {
             authRepository.validateCode(code.toString()).collect {
                 when(it) {
