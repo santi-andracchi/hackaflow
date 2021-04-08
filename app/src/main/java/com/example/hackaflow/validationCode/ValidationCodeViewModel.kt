@@ -1,14 +1,43 @@
 package com.example.hackaflow.validationCode
 
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.hackaflow.R
+import com.example.hackaflow.data.CodeValidation
+import com.example.hackaflow.data.DataResult
+import com.example.hackaflow.data.UIState
+import com.example.hackaflow.koin.HackaFlowApp
+import com.example.hackaflow.repository.AuthRepository
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
-class ValidationCodeViewModel: ViewModel() {
+@ExperimentalCoroutinesApi
+class ValidationCodeViewModel(private val authRepository: AuthRepository): ViewModel() {
+
+    private val _validationState = MutableLiveData<UIState<out CodeValidation>>()
+    val validationState: LiveData<UIState<out CodeValidation>> = _validationState
 
     fun validateCode(code: CharSequence) {
         viewModelScope.launch {
-            //post code and wait for result.
+            authRepository.validateCode(code.toString()).collect {
+                when(it) {
+                    is DataResult.Success -> {
+                        if(it.data.code != code.toString()){
+                            _validationState.postValue(UIState.ErrorMessage(HackaFlowApp.getString(R.string.error_incorrect_code)))
+                        }
+                        else {
+                            _validationState.postValue(UIState.Success(it.data))
+                        }
+                    }
+                    is DataResult.ErrorResult -> {
+                        _validationState.postValue(UIState.ErrorMessage(it.getMessage()))
+                    }
+                }
+
+            }
         }
     }
 }

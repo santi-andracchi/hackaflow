@@ -6,6 +6,7 @@ import com.example.hackaflow.base.BaseViewModel
 import com.example.hackaflow.repository.AuthRepository
 import com.example.hackaflow.repository.AuthRepositoryImpl
 import com.example.hackaflow.validationCode.ValidationCodeViewModel
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import org.koin.android.viewmodel.dsl.viewModel
@@ -15,6 +16,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
 
 
+@ExperimentalCoroutinesApi
 val appModules = module {
     single { provideRetrofit(get(), "https://hackaflow-team3-backend.herokuapp.com/") }
     single { provideAuthRepository(get()) }
@@ -25,7 +27,7 @@ val appModules = module {
 
     viewModel { BaseViewModel() }
     viewModel { LoginViewModel(get()) }
-    viewModel { ValidationCodeViewModel() }
+    viewModel { ValidationCodeViewModel(get()) }
 }
 
 fun provideRetrofit(okHttpClient: OkHttpClient, url: String): Retrofit {

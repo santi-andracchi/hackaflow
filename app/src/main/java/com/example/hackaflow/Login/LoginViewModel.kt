@@ -11,8 +11,7 @@ import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
-class LoginViewModel(
-    private val authRepository: AuthRepository) : ViewModel() {
+class LoginViewModel(private val authRepository: AuthRepository) : ViewModel() {
 
     private val _loginState = MutableLiveData<UIState<out Any>>()
     val loginState: LiveData<UIState<out Any>> = _loginState
