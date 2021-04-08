@@ -30,8 +30,11 @@ class LoginFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         observeLogin()
+        setListeners()
+    }
 
-        button_first.setOnClickListener {
+    private fun setListeners(){
+        login.setOnClickListener {
             val action = LoginFragmentDirections.navigationLoginToValidation()
             requireActivity().findNavController(R.id.nav_host_fragment).navigate(action)
         }

@@ -6,6 +6,8 @@ sealed class UIState<T> {
 
     class Error<T>(val data: T? = null) : UIState<T>()
 
+    class ErrorMessage<T>(val data: String? = null) : UIState<T>()
+
     class Success<T>(val data: T? = null) : UIState<T>()
 
 }
