@@ -11,4 +11,6 @@
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
     <string name="validation_fragment">validation_fragment</string>
     <string name="connection_error">"No pudimos comunicarnos con el servidor. Intentá nuevamente"</string>
+    <string name="success_link">Se ha vinculado con exito</string>
+    <string name="redirect_msg">En un Momento sera redireccionado</string>
 </resources>

@@ -8,6 +8,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.navigation.findNavController
+import androidx.navigation.fragment.navArgs
+import com.example.hackaflow.Login.LoginFragmentDirections
 import com.example.hackaflow.R
 import kotlinx.android.synthetic.main.fragment_validation.*
 import org.koin.android.viewmodel.ext.android.viewModel
@@ -16,7 +19,6 @@ import org.koin.android.viewmodel.ext.android.viewModel
 class ValidationCodeFragment: Fragment() {
 
     private val viewModel: ValidationCodeViewModel by viewModel()
-    private var code: CharSequence = ""
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_validation, container, false)
@@ -30,7 +32,7 @@ class ValidationCodeFragment: Fragment() {
     private fun setListeners(){
         pinCodeEditText.addTextChangedListener(object : TextWatcher {
             override fun onTextChanged(cs: CharSequence, arg1: Int, arg2: Int, arg3: Int) {
-                code = cs
+                if(cs.length == 5) viewModel.validateCode(cs)
             }
             override fun beforeTextChanged(s: CharSequence, arg1: Int, arg2: Int, arg3: Int) {}
             override fun afterTextChanged(arg0: Editable) {
@@ -38,8 +40,8 @@ class ValidationCodeFragment: Fragment() {
         })
 
         scanCodeButton.setOnClickListener {
-            if(code.length == 5) viewModel.validateCode(code)
-            else Toast.makeText(requireContext(), "Error: Complete todos los casilleros", Toast.LENGTH_SHORT).show()
+            val action = ValidationCodeFragmentDirections.actionValidationCodeFragmentToResultFragment(isSuccess = true)
+            requireActivity().findNavController(R.id.nav_host_fragment).navigate(action)
         }
     }
 }
