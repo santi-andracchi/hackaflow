@@ -1,5 +1,6 @@
 package com.example.hackaflow.repository
 
+import com.example.hackaflow.data.CodeValidation
 import com.example.hackaflow.data.DataResult
 import com.example.hackaflow.extensions.parse
 import com.example.hackaflow.koin.FlowAPI
@@ -17,13 +18,13 @@ class AuthRepositoryImpl(private val flowApi: FlowAPI) : AuthRepository {
         }
 
         return flow {
-            emit(flowApi.validateCode(data))
+            emit(flowApi.login(data))
         }.map { res ->
             res.parse { it }
         }
     }
 
-    override suspend fun validateCode(code: String): Flow<DataResult<JsonObject>> {
+    override suspend fun validateCode(code: String): Flow<DataResult<CodeValidation>> {
         val data = JsonObject().apply {
             addProperty("code", code)
         }
