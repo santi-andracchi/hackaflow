@@ -1,7 +1,10 @@
 package com.example.hackaflow.koin
 
+import com.example.hackaflow.BuildConfig
+import com.example.hackaflow.Login.LoginViewModel
 import com.example.hackaflow.base.BaseViewModel
-import kotlinx.coroutines.ExperimentalCoroutinesApi
+import com.example.hackaflow.repository.AuthRepository
+import com.example.hackaflow.repository.AuthRepositoryImpl
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import org.koin.androidx.viewmodel.dsl.viewModel
@@ -11,15 +14,16 @@ import retrofit2.converter.gson.GsonConverterFactory
 import java.util.concurrent.TimeUnit
 
 
-@ExperimentalCoroutinesApi
 val appModules = module {
-    single {
-        provideRetrofit(get(), "https://flow.com.ar")
-    }
-    factory { providesOkHttpClient(get()) }
+    single { provideRetrofit(get(), "https://hackaflow-team3-backend.herokuapp.com/") }
+    single { provideAuthRepository(get()) }
 
+    factory { providesHttplogging() }
+    factory { providesOkHttpClient(get()) }
+    factory { createWebService<FlowAPI>(get()) }
 
     viewModel { BaseViewModel() }
+    viewModel { LoginViewModel(get()) }
 }
 
 fun provideRetrofit(okHttpClient: OkHttpClient, url: String): Retrofit {
@@ -27,6 +31,15 @@ fun provideRetrofit(okHttpClient: OkHttpClient, url: String): Retrofit {
         .baseUrl(url)
         .client(okHttpClient)
         .addConverterFactory(GsonConverterFactory.create()).build()
+}
+
+fun providesHttplogging(): HttpLoggingInterceptor {
+    val interceptor = HttpLoggingInterceptor()
+    interceptor.level = if (BuildConfig.DEBUG)
+        HttpLoggingInterceptor.Level.BODY
+    else
+        HttpLoggingInterceptor.Level.NONE
+    return interceptor
 }
 
 fun providesOkHttpClient(interceptor: HttpLoggingInterceptor): OkHttpClient {
@@ -37,3 +50,5 @@ fun providesOkHttpClient(interceptor: HttpLoggingInterceptor): OkHttpClient {
         .build()
 }
 
+inline fun <reified T> createWebService(retrofit: Retrofit): T = retrofit.create(T::class.java)
+fun provideAuthRepository(flowApi: FlowAPI): AuthRepository = AuthRepositoryImpl(flowApi)
