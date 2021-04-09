@@ -39,6 +39,8 @@
         android:inputType="text"
         android:textColor="@color/white"
         app:hideLineWhenFilled="false"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
         app:itemSpacing="16dp"
         app:itemCount="5"
         app:viewType="line"
