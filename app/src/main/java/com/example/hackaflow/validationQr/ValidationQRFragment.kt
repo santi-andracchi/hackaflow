@@ -10,6 +10,7 @@ import androidx.activity.OnBackPressedCallback
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.example.hackaflow.R
 import com.example.hackaflow.data.UIState
@@ -17,6 +18,8 @@ import com.example.hackaflow.extensions.toast
 import com.example.hackaflow.utils.ViewUtils
 import com.example.hackaflow.validationCode.ValidationCodeViewModel
 import kotlinx.android.synthetic.main.fragment_validation_qr.*
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 import me.dm7.barcodescanner.zxing.ZXingScannerView
 import org.koin.android.viewmodel.ext.android.viewModel
 
@@ -63,6 +66,7 @@ class ValidationQRFragment : Fragment() {
     override fun onResume() {
         super.onResume()
 
+
         if (!checkCameraPermission()) {
             askForCameraPermission()
         } else {
@@ -77,13 +81,13 @@ class ValidationQRFragment : Fragment() {
     }
 
     private fun setupControls() {
-
         zxscan.setResultHandler(ZXingScannerView.ResultHandler { rawResult ->
             viewModel.validateCode(rawResult.toString())
         })
-
-        zxscan.startCamera()
-
+        lifecycleScope.launch {
+            delay(400)
+            zxscan.startCamera()
+        }
         context?.apply {
             ViewUtils.expandTouchArea(
                 this,
@@ -92,8 +96,7 @@ class ValidationQRFragment : Fragment() {
                 15,
                 15,
                 15,
-                15
-            )
+                15)
         }
 
         imageViewFlashLight.setOnClickListener {
@@ -106,7 +109,6 @@ class ValidationQRFragment : Fragment() {
                 imageViewFlashLight.setImageResource(R.drawable.ic_torch_off)
             }
         }
-
         buttonManualEntry.setOnClickListener {
             navigateToCodeFragment()
         }
