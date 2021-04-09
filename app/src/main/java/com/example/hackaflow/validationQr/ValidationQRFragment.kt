@@ -5,17 +5,24 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.activity.OnBackPressedCallback
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.example.hackaflow.R
+import com.example.hackaflow.data.UIState
+import com.example.hackaflow.extensions.toast
 import com.example.hackaflow.utils.ViewUtils
+import com.example.hackaflow.validationCode.ValidationCodeViewModel
 import kotlinx.android.synthetic.main.fragment_validation_qr.*
 import me.dm7.barcodescanner.zxing.ZXingScannerView
+import org.koin.android.viewmodel.ext.android.viewModel
 
 class ValidationQRFragment : Fragment() {
+
+    private val viewModel: ValidationCodeViewModel by viewModel()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         return inflater.inflate(R.layout.fragment_validation_qr, container, false)
@@ -27,13 +34,30 @@ class ValidationQRFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         val callback = object : OnBackPressedCallback(true) {
             override fun handleOnBackPressed() {
                 findNavController().popBackStack()
             }
         }
         requireActivity().onBackPressedDispatcher.addCallback(this, callback)
+    }
+
+    private fun setObserver() {
+
+        viewModel.validationState.observe(viewLifecycleOwner, {
+            when (it) {
+                is UIState.ErrorMessage ->{
+                    toast(it.data, Toast.LENGTH_LONG)
+                }
+
+                is UIState.Success -> {
+                    navigateToResult()
+                }
+                is UIState.Error -> {
+                    toast(resources.getString(R.string.connection_error), Toast.LENGTH_LONG)
+                }
+            }
+        })
     }
 
     override fun onResume() {
@@ -43,6 +67,7 @@ class ValidationQRFragment : Fragment() {
             askForCameraPermission()
         } else {
             setupControls()
+            setObserver()
         }
     }
 
@@ -54,7 +79,7 @@ class ValidationQRFragment : Fragment() {
     private fun setupControls() {
 
         zxscan.setResultHandler(ZXingScannerView.ResultHandler { rawResult ->
-            navigateToResult()
+            viewModel.validateCode(rawResult.toString())
         })
 
         zxscan.startCamera()
@@ -83,7 +108,7 @@ class ValidationQRFragment : Fragment() {
         }
 
         buttonManualEntry.setOnClickListener {
-            navigateToSerialNumber()
+            navigateToCodeFragment()
         }
     }
 
@@ -112,8 +137,9 @@ class ValidationQRFragment : Fragment() {
                 if (grantResults.isNotEmpty()) {
                     if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                         setupControls()
+                        setObserver()
                     } else {
-                        navigateToSerialNumber()
+                        navigateToCodeFragment()
                     }
                 }
             }
@@ -124,7 +150,7 @@ class ValidationQRFragment : Fragment() {
         const val PERMISSION_REQUEST_CODE = 1001
     }
 
-    private fun navigateToSerialNumber() {
+    private fun navigateToCodeFragment() {
         val action = ValidationQRFragmentDirections.actionNavigationValidationQrToValidationCode()
         findNavController().navigate(action)
     }
