@@ -17,6 +17,7 @@ import androidx.navigation.findNavController
 import com.example.hackaflow.R
 import com.example.hackaflow.data.UIState
 import com.example.hackaflow.extensions.hideKeyboard
+import com.example.hackaflow.extensions.showKeyboard
 import com.example.hackaflow.extensions.toast
 import kotlinx.android.synthetic.main.fragment_login.*
 import kotlinx.android.synthetic.main.fragment_validation.*
@@ -81,6 +82,7 @@ class LoginFragment : Fragment() {
 
         email.setOnFocusChangeListener { _, hasFocus ->
 
+            requireActivity().showKeyboard()
             val emailText = email.text.toString()
             val validEmail = !TextUtils.isEmpty(emailText)
                     && Patterns.EMAIL_ADDRESS.matcher(emailText).matches()
@@ -97,6 +99,8 @@ class LoginFragment : Fragment() {
         }
 
         password.setOnFocusChangeListener { _, hasFocus ->
+            requireActivity().showKeyboard()
+
             val passwordText = password.text.toString()
             val validLength = passwordText.length > 5
 
