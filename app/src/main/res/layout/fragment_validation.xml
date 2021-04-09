@@ -36,7 +36,7 @@
         android:id="@+id/pinCodeEditText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:inputType="text"
+        android:inputType="textCapCharacters"
         android:textColor="@color/white"
         app:hideLineWhenFilled="true"
         android:textAllCaps="true"
