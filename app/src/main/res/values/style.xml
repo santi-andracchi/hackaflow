@@ -11,7 +11,7 @@
         <item name="android:radius">32dp</item>
     </style>
 
-    <style name="Widget.App.Button.Bordered" parent="Widget.MaterialComponents.Button.OutlinedButton">
+    <style name="Widget.App.Button.Bordered" parent="Widget.MaterialComponents.TextInputLayout.FilledBox.Dense">
         <item name="materialThemeOverlay">@style/ThemeOverlay.App.Button</item>
         <item name="shapeAppearance">@style/ShapeAppearance.App.SmallComponent</item>
     </style>

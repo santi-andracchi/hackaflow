@@ -29,5 +29,7 @@
     <string name="success_link">Se ha vinculado con exito</string>
     <string name="redirect_msg">En un Momento sera redireccionado</string>
     <string name="error_fields">"Error: Complete todos los casilleros"</string>
+    <string name="verify_email_format">Verificá el formato del Email.</string>
+    <string name="login_wrong_password">La contraseña debe contener al menos 6 caracteres.</string>
 
 </resources>
