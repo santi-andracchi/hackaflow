@@ -35,7 +35,7 @@ class ValidationCodeFragment: Fragment() {
     private fun setListeners() {
         pinCodeEditText.addTextChangedListener(object : TextWatcher {
             override fun onTextChanged(cs: CharSequence, arg1: Int, arg2: Int, arg3: Int) {
-                if(cs.length == 5){
+                if(cs.length == 6){
                     viewModel.validateCode(cs)
                     requireActivity().hideKeyboard()
                 } else setNormalColors()
