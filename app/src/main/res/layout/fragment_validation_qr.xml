@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".ui.addDevice.addQrDevice.AddQrDeviceFragment">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/fragment_add_qr_device_container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/black">
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guidelineStart"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintGuide_begin="56dp"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guidelineEnd"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintGuide_end="56dp"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="parent" />
+
+
+        <me.dm7.barcodescanner.zxing.ZXingScannerView
+            android:id="@+id/zxscan"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:borderColor="#2f90b8"
+            app:borderLength="15dp"
+            app:borderWidth="5dp"
+            app:cornerRadius="0dp"
+            app:finderOffset="-10dp"
+            app:laserEnabled="false"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@id/guidelineEnd"
+            app:layout_constraintStart_toStartOf="@id/guidelineStart"
+            app:layout_constraintTop_toTopOf="parent"
+            app:maskColor="#BB000000"
+            app:squaredFinder="true" />
+
+        <ImageView
+            android:id="@+id/imageViewFlashLight"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="110dp"
+            android:src="@drawable/ic_torch_off"
+            app:layout_constraintBottom_toTopOf="@id/textViewMensaggeQr"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/imageView" />
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_grupo_20525"
+            app:layout_constraintBottom_toBottomOf="@+id/zxscan"
+            app:layout_constraintEnd_toStartOf="@+id/guidelineEnd"
+            app:layout_constraintStart_toStartOf="@+id/guidelineStart"
+            app:layout_constraintTop_toTopOf="@+id/zxscan" />
+
+        <TextView
+            android:id="@+id/textViewMensaggeQr"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="46dp"
+            android:layout_marginEnd="46dp"
+            android:fontFamily="sans-serif"
+            android:gravity="center"
+            android:text="@string/scan_qr_message"
+            android:textColor="#FFFFFF"
+            android:textSize="16sp"
+            app:layout_constraintBottom_toTopOf="@id/buttonManualEntry"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/imageViewFlashLight" />
+
+        <Button
+            android:id="@+id/buttonManualEntry"
+            android:layout_width="0dp"
+            android:layout_height="60dp"
+            android:fontFamily="sans-serif"
+            android:backgroundTint="@color/accent"
+            android:text="Ingresar manualmente"
+            android:textAllCaps="false"
+            android:textColor="@color/black"
+            android:textSize="14sp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="@id/guidelineEnd"
+            app:layout_constraintStart_toStartOf="@id/guidelineStart"
+            app:layout_constraintTop_toBottomOf="@+id/textViewMensaggeQr" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</layout>

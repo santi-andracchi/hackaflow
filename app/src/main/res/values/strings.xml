@@ -14,6 +14,8 @@
     <string name="login_email_hint">Usuario (Email)</string>
     <string name="login_password_hint">Contraseña</string>
 
+    <string name="scan_qr_message">Coloque el código QR dentro del marco cuadrado, se escaneará automáticamente</string>
+
     <string name="prompt_email">User (Email)</string>
     <string name="prompt_password">Contraseña</string>
     <string name="action_sign_in">Ingresar</string>

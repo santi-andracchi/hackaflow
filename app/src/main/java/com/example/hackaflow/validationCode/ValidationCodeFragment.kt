@@ -10,6 +10,7 @@ import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
+import androidx.navigation.fragment.findNavController
 import com.example.hackaflow.R
 import com.example.hackaflow.data.UIState
 import com.example.hackaflow.extensions.hideKeyboard
@@ -31,7 +32,7 @@ class ValidationCodeFragment: Fragment() {
         setObserver()
     }
 
-    private fun setListeners(){
+    private fun setListeners() {
         pinCodeEditText.addTextChangedListener(object : TextWatcher {
             override fun onTextChanged(cs: CharSequence, arg1: Int, arg2: Int, arg3: Int) {
                 if(cs.length == 5){
@@ -45,11 +46,11 @@ class ValidationCodeFragment: Fragment() {
         })
 
         scanCodeButton.setOnClickListener {
-
+            findNavController().navigate(ValidationCodeFragmentDirections.actionNavigationValidationCodeToValidationQr())
         }
     }
 
-    private fun setObserver(){
+    private fun setObserver() {
 
         viewModel.validationState.observe(viewLifecycleOwner, {
             when (it) {

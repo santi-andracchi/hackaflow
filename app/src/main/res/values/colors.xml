@@ -11,4 +11,5 @@
     <color name="grayFive">#686868</color>
     <color name="accent">#57d8b0</color>
     <color name="error">#a74449</color>
+    <color name="textColorSecondary">#efefef</color>
 </resources>

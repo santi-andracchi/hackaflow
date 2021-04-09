@@ -22,7 +22,23 @@
         android:label="@string/validation_fragment"
         tools:layout="@layout/fragment_validation">
         <action
+            android:id="@+id/action_navigation_validation_code_to_validation_qr"
+            app:destination="@id/ValidationQrFragment" />
+        <action
             android:id="@+id/action_ValidationCodeFragment_to_ResultFragment"
+            app:destination="@id/ResultFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/ValidationQrFragment"
+        android:name="com.example.hackaflow.validationQr.ValidationQRFragment"
+        android:label="fragment_validation_qr"
+        tools:layout="@layout/fragment_validation_qr" >
+        <action
+            android:id="@+id/action_navigation_validation_qr_to_validation_code"
+            app:destination="@id/ValidationCodeFragment" />
+        <action
+            android:id="@+id/action_ValidationQRFragment_to_ResultFragment"
             app:destination="@id/ResultFragment" />
 
     </fragment>
