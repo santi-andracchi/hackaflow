@@ -2,6 +2,7 @@ package com.example.hackaflow.result
 
 import android.os.Bundle
 import android.os.Handler
+import android.os.Looper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -30,7 +31,7 @@ class ResultFragment: Fragment() {
 
     private fun setResult(){
         if(args.isSuccess){
-            Handler().postDelayed(Runnable {
+            Handler(Looper.getMainLooper()).postDelayed(Runnable {
                 val action = ResultFragmentDirections.actionNavigationResultToValidationCode()
                 requireActivity().findNavController(R.id.nav_host_fragment).navigate(action)
             }, 5000)
