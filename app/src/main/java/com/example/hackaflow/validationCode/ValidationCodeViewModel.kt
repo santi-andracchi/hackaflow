@@ -22,16 +22,15 @@ class ValidationCodeViewModel(private val authRepository: AuthRepository): ViewM
 
     fun validateCode(code: CharSequence) {
         _validationState.postValue(UIState.Loading())
+
+        _validationState.postValue(UIState.Success(CodeValidation(""))) // TODO remove when backend is available
+        return
+
         viewModelScope.launch {
             authRepository.validateCode(code.toString()).collect {
                 when(it) {
                     is DataResult.Success -> {
-                        if(it.data.code != code.toString()){
-                            _validationState.postValue(UIState.ErrorMessage(HackaFlowApp.getString(R.string.error_incorrect_code)))
-                        }
-                        else {
-                            _validationState.postValue(UIState.Success(it.data))
-                        }
+                        _validationState.postValue(UIState.Success(it.data))
                     }
                     is DataResult.ErrorResult -> {
                         _validationState.postValue(UIState.ErrorMessage(it.getMessage()))
