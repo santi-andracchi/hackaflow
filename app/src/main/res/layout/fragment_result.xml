@@ -29,17 +29,15 @@
         android:textSize="24sp"
         tools:text="Se ha vinculado con exito" />
 
-    <ImageView
-        android:id="@+id/checkImage"
-        android:layout_width="120dp"
-        android:layout_height="120dp"
-        android:focusable="false"
-        android:src="@drawable/ic_baseline_check_24"
+    <com.airbnb.lottie.LottieAnimationView
+        android:layout_width="wrap_content"
+        android:layout_marginTop="32dp"
+        android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:fontFamily="sans-serif-light"
-        android:lineSpacingExtra="0sp"
-        android:layout_marginTop="120dp"
-        android:textColor="@color/white" />
+        app:lottie_rawRes="@raw/success"
+        app:lottie_autoPlay="true"
+        app:lottie_loop="true"
+        />
 
     <TextView
         android:id="@+id/redirectTitle"
