@@ -23,9 +23,6 @@ class ValidationCodeViewModel(private val authRepository: AuthRepository): ViewM
     fun validateCode(code: CharSequence) {
         _validationState.postValue(UIState.Loading())
 
-        _validationState.postValue(UIState.Success(CodeValidation(""))) // TODO remove when backend is available
-        return
-
         viewModelScope.launch {
             authRepository.validateCode(code.toString()).collect {
                 when(it) {
