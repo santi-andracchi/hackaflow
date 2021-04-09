@@ -20,7 +20,6 @@ import com.example.hackaflow.extensions.hideKeyboard
 import com.example.hackaflow.extensions.showKeyboard
 import com.example.hackaflow.extensions.toast
 import kotlinx.android.synthetic.main.fragment_login.*
-import kotlinx.android.synthetic.main.fragment_validation.*
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import org.koin.android.ext.android.inject
 

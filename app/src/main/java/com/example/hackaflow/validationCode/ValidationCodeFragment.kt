@@ -54,16 +54,20 @@ class ValidationCodeFragment: Fragment() {
 
         viewModel.validationState.observe(viewLifecycleOwner, {
             when (it) {
+                is UIState.Loading -> {
+                    loading.visibility = View.VISIBLE
+                }
                 is UIState.ErrorMessage ->{
+                    loading.visibility = View.GONE
                     toast(it.data, Toast.LENGTH_LONG)
                     setErrorColors()
                 }
-
                 is UIState.Success -> {
                     val action = ValidationCodeFragmentDirections.actionValidationCodeFragmentToResultFragment(isSuccess = true)
                     requireActivity().findNavController(R.id.nav_host_fragment).navigate(action)
                 }
                 is UIState.Error -> {
+                    loading.visibility = View.GONE
                     toast(resources.getString(R.string.connection_error), Toast.LENGTH_LONG)
                     setErrorColors()
                 }

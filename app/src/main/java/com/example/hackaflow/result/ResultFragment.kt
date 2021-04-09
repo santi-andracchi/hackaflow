@@ -33,7 +33,7 @@ class ResultFragment: Fragment() {
             Handler().postDelayed(Runnable {
                 val action = ResultFragmentDirections.actionNavigationResultToValidationCode()
                 requireActivity().findNavController(R.id.nav_host_fragment).navigate(action)
-            }, 2300)
+            }, 5000)
 
             resultTitle.text = getString(R.string.success_link)
 //            checkImage.setBackgroundResource(R.drawable.ic_baseline_check_24)

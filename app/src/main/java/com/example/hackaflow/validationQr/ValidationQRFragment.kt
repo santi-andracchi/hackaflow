@@ -49,14 +49,19 @@ class ValidationQRFragment : Fragment() {
 
         viewModel.validationState.observe(viewLifecycleOwner, {
             when (it) {
-                is UIState.ErrorMessage ->{
-                    toast(it.data, Toast.LENGTH_LONG)
+                is UIState.Loading -> {
+                    loading.visibility = View.VISIBLE
                 }
-
+                is UIState.ErrorMessage -> {
+                    loading.visibility = View.GONE
+                    toast(it.data, Toast.LENGTH_LONG)
+                    initCamera()
+                }
                 is UIState.Success -> {
                     navigateToResult()
                 }
                 is UIState.Error -> {
+                    loading.visibility = View.GONE
                     toast(resources.getString(R.string.connection_error), Toast.LENGTH_LONG)
                 }
             }
@@ -65,7 +70,6 @@ class ValidationQRFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
-
 
         if (!checkCameraPermission()) {
             askForCameraPermission()
@@ -80,13 +84,19 @@ class ValidationQRFragment : Fragment() {
         zxscan.stopCamera()
     }
 
-    private fun setupControls() {
+
+    private fun initCamera() {
+        zxscan.startCamera()
         zxscan.setResultHandler(ZXingScannerView.ResultHandler { rawResult ->
             viewModel.validateCode(rawResult.toString())
         })
+    }
+
+    private fun setupControls() {
+
         lifecycleScope.launch {
             delay(400)
-            zxscan.startCamera()
+            initCamera()
         }
         context?.apply {
             ViewUtils.expandTouchArea(
